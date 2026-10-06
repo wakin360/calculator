@@ -15,27 +15,114 @@ function CalcButton({ buttonLabel, onClick, variant = 'default' }) {
 
 function App() {
   const [displayValue, setDisplayValue] = useState('0')
+  const [firstOperand, setFirstOperand] = useState(null)
+  const [operator, setOperator] = useState(null)
+  const [waitingForSecondOperand, setWaitingForSecondOperand] = useState(false)
+
+  const calculate = (leftOperand, rightOperand, selectedOperator) => {
+    switch (selectedOperator) {
+      case '+':
+        return leftOperand + rightOperand
+      case '-':
+        return leftOperand - rightOperand
+      case '×':
+        return leftOperand * rightOperand
+      case '÷':
+        return rightOperand === 0 ? 'Error' : leftOperand / rightOperand
+      default:
+        return rightOperand
+    }
+  }
+
+  const handleNumberInput = (digit) => {
+    if (waitingForSecondOperand) {
+      setDisplayValue(String(digit))
+      setWaitingForSecondOperand(false)
+      return
+    }
+
+    setDisplayValue((previousValue) => {
+      if (previousValue === '0') {
+        return String(digit)
+      }
+
+      return `${previousValue}${digit}`
+    })
+  }
+
+  const handleDecimalInput = () => {
+    if (waitingForSecondOperand) {
+      setDisplayValue('0.')
+      setWaitingForSecondOperand(false)
+      return
+    }
+
+    if (!displayValue.includes('.')) {
+      setDisplayValue((previousValue) => `${previousValue}.`)
+    }
+  }
+
+  const handleOperatorInput = (nextOperator) => {
+    const inputValue = Number(displayValue)
+
+    if (firstOperand === null) {
+      setFirstOperand(inputValue)
+    } else if (operator) {
+      const result = calculate(firstOperand, inputValue, operator)
+
+      setDisplayValue(result === 'Error' ? 'Error' : String(result))
+      setFirstOperand(result === 'Error' ? null : result)
+    }
+
+    setWaitingForSecondOperand(true)
+    setOperator(nextOperator)
+  }
+
+  const handleEquals = () => {
+    if (!operator || firstOperand === null) {
+      return
+    }
+
+    const inputValue = Number(displayValue)
+    const result = calculate(firstOperand, inputValue, operator)
+
+    setDisplayValue(result === 'Error' ? 'Error' : String(result))
+    setFirstOperand(null)
+    setOperator(null)
+    setWaitingForSecondOperand(true)
+  }
+
+  const handleClear = () => {
+    setDisplayValue('0')
+    setFirstOperand(null)
+    setOperator(null)
+    setWaitingForSecondOperand(false)
+  }
 
   const buttonClickHandler = (event) => {
     const value = event.currentTarget.dataset.value
 
     if (value === 'CLR') {
-      setDisplayValue('0')
+      handleClear()
       return
     }
 
     if (value === '=') {
-      setDisplayValue('0')
+      handleEquals()
       return
     }
 
-    setDisplayValue((previousValue) => {
-      if (previousValue === '0' && value !== '.') {
-        return value
-      }
+    if (['+', '-', '×', '÷'].includes(value)) {
+      handleOperatorInput(value)
+      return
+    }
 
-      return `${previousValue}${value}`
-    })
+    if (value === '.') {
+      handleDecimalInput()
+      return
+    }
+
+    handleNumberInput(Number(value))
   }
 
   return (
