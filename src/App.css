@@ -3,44 +3,40 @@
   display: grid;
   align-content: center;
   justify-items: center;
-  gap: 30px;
+  gap: 24px;
   padding: 40px 20px;
-  background:
-    radial-gradient(ellipse at 12% 18%, #e6eee5 0, transparent 34%),
-    #f5f0e5;
-  color: #293a30;
+  background: #eef0f6;
+  color: #202638;
 }
 
 .Header {
   max-width: 100%;
-  padding: 0 8px 10px;
-  border-bottom: 2px solid #9cac98;
-  font-size: clamp(1.05rem, 3vw, 1.4rem);
-  font-weight: 700;
+  font-size: clamp(1rem, 3vw, 1.2rem);
+  font-weight: 600;
+  letter-spacing: 0.02em;
   text-align: center;
 }
 
 .Calculator {
-  width: min(100%, 440px);
-  padding: 20px;
-  border: 1px solid #c0cbb9;
-  border-radius: 16px;
-  background: #fffdf7;
-  box-shadow: 0 16px 38px rgba(49, 69, 53, 0.13);
+  width: min(100%, 400px);
+  padding: 18px;
+  border: 1px solid #dfe3ed;
+  border-radius: 20px;
+  background: #fff;
+  box-shadow: 0 18px 45px rgba(39, 48, 77, 0.1);
 }
 
 .Display {
-  min-height: 88px;
+  min-height: 96px;
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  padding: 14px 18px;
+  padding: 16px 20px;
   overflow: hidden;
-  border: 1px solid #304b3a;
-  border-radius: 10px;
-  background: #415f4b;
-  color: #fffdf5;
-  font-size: clamp(2rem, 7vw, 2.5rem);
+  border-radius: 13px;
+  background: #202638;
+  color: #f7f8fc;
+  font-size: clamp(2rem, 8vw, 2.6rem);
   font-variant-numeric: tabular-nums;
 }
 
@@ -48,22 +44,22 @@
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 10px;
-  margin-top: 16px;
+  margin-top: 14px;
 }
 
 .Button {
   min-height: 62px;
-  border: 1px solid #d5d9cd;
-  border-radius: 9px;
-  background: #f2efe6;
-  color: #293a30;
-  font-size: 1.4rem;
+  border: 1px solid #e6e9f1;
+  border-radius: 12px;
+  background: #f7f8fb;
+  color: #30384c;
+  font-size: 1.35rem;
   font-weight: 500;
   transition: background-color 120ms ease, transform 120ms ease;
 }
 
 .Button:hover {
-  background: #e7e9dd;
+  background: #eceff6;
   transform: translateY(-1px);
 }
 
@@ -71,36 +67,47 @@
   transform: translateY(1px);
 }
 
-.Button.operator,
-.Button.utility {
-  background: #e2e9df;
-  color: #354e3a;
+.Button.operator {
+  border-color: #e0e5f4;
+  background: #edf0fa;
+  color: #4a5db2;
+  font-weight: 600;
 }
 
-.Button.operator:hover,
+.Button.operator:hover {
+  background: #e1e6f7;
+}
+
+.Button.utility {
+  border-color: #f1dcd6;
+  background: #fff1ed;
+  color: #bd5843;
+  font-weight: 600;
+}
+
 .Button.utility:hover {
-  background: #d3dfd1;
+  background: #ffe5de;
 }
 
 .Button.accent {
-  border-color: #54755b;
-  background: #66876c;
-  color: #fffdf5;
+  border-color: #4b5fc0;
+  background: #596ed0;
+  color: #fff;
   font-weight: 700;
 }
 
 .Button.accent:hover {
-  background: #57795f;
+  background: #485dbd;
 }
 
 .Button:focus-visible {
-  outline: 3px solid #839b78;
+  outline: 3px solid #8794db;
   outline-offset: 2px;
 }
 
 @media (max-width: 480px) {
   .App {
-    gap: 24px;
+    gap: 20px;
     padding: 30px 16px;
   }
 
